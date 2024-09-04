@@ -15,6 +15,13 @@ const themes = [
         gridGap: "2rem",
         padLRSm: "0 2rem",
         borderColor2: "gray",
+        colorGrey1: "#181818",
+        colorGrey2: "#212121",
+        colorGrey5: "#3A3A3A",
+        colorGray3: "gray",
+        activeNavLinkHover: "#2E2E2E",
+        greenDark: "#50C878",
+        activeNavLink: "#383838",
 
 
 

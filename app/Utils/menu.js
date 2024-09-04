@@ -15,15 +15,15 @@ const menu = [
     },
     {
         id: 3,
-        title: "Completed tasks",
+        title: "Completed",
         icon: check,
-        link: "/completed"
+        link: "/complete"
     },
     {
         id: 4,
         title: "Still open",
         icon: todo,
-        link: "/incompleted"
+        link: "/incomplete"
     },
     
 ]
