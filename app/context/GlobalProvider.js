@@ -39,7 +39,7 @@ export const GlobalProvider = ({ children }) => {
 
   const deleteTask = async (id) => {
     try {
-      const res = await axios.delete(`api/tasks/${id}`);
+      const res = await axios.delete(`/api/tasks/${id}`);
       toast.success("Task deleted");
 
       allTasks();
