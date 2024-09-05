@@ -1,11 +1,13 @@
 "use client";
 
 import React from 'react'
+import { useGlobalState } from '../context/GlobalProvider';
+import Tasks from '../components/Tasks/Tasks';
 
-const page = () => {
-  return (
-    <div>Important</div>
-  )
+function page () {
+  const {importantTasks} = useGlobalState();
+
+  return <Tasks title='Important Tasks' tasks={importantTasks}/>
 }
 
 export default page

@@ -50,7 +50,7 @@ export async function GET(req:Request) {
                 userId,
             },
         });
-        console.log("TASKS: ", tasks);
+
         return NextResponse.json(tasks);
     } catch (error) {
         console.log("ERROR GETTING TASKS: ", error);
@@ -61,20 +61,24 @@ export async function GET(req:Request) {
 
 export async function PUT(req:Request) {
     try {
-        
+        const {userId} = auth();
+        const {isCompleted, id} = await req.json();
+
+        if (!userId) {return NextResponse.json({error: "Unauthorized", status: 401})}
+
+        const task = await prisma.task.update({
+            where: {
+                id,
+            },
+            data:{
+                isCompleted,
+            },
+        })
+        return NextResponse.json(task);
+
     } catch (error) {
         console.log("ERROR UPDATING TASK: ", error);
         return  NextResponse.json({error: "Error updating task",status: 500});
-    }
-    
-}
-
-export async function DELETE(req:Request) {
-    try {
-        
-    } catch (error) {
-        console.log("ERROR DELETING TASK: ", error);
-        return  NextResponse.json({error: "Error deleting task",status: 500});
     }
     
 }

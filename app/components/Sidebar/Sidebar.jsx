@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import Button from '../Button/Button';
 import { logout } from '@/app/Utils/icons';
-import { useClerk } from '@clerk/nextjs';
+import { useClerk, UserButton, useUser } from '@clerk/nextjs';
 
 const SidebarStyled = styled.nav`
   position: relative;
@@ -20,6 +20,23 @@ const SidebarStyled = styled.nav`
   flex-direction: column;
   justify-content: space-between;
   color: ${(props) => props.theme.colorGray3};
+
+  .user-btn{
+    .cl-rootBox{
+      width:100%;
+      height:100%;
+
+      .cl-userButtonBox{
+        width:100%;
+        height:100%;
+      }
+        .cl-userButtonTrigger{
+          width:100%;
+          height:100%;
+          opacity:0;
+        }
+    }
+  }
 
   .profile {
     margin: 1.5rem;
@@ -159,6 +176,8 @@ function Sidebar() {
   const router = useRouter();
   const pathname = usePathname();
   const {signOut} = useClerk();
+  const {user} = useUser();
+  const {firstName, lastName, imageUrl} = user || {firstName:"", lastName:"", imageUrl:""};
 
   const handleClick = (link) => {
     router.push(link);
@@ -169,11 +188,13 @@ function Sidebar() {
       <div className="profile">
         <div className="profile-overlay"></div>
         <div className="image">
-          <Image width={70} height={70} src="/me.png" alt='profile' />
+          <Image width={70} height={70} src={imageUrl} alt='profile' />
         </div>
-        <h1>
-          <span>Firstname </span>
-          <span>Lastname</span>
+        <div className="user-btn absolute z-20 top-0 w-full h-full">
+          <UserButton/>
+        </div>
+        <h1 className='capitalize'>
+          {firstName} {lastName}
         </h1>
       </div>
       <ul className='nav-items'>

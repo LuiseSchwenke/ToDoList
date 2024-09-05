@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import CreateContent from '../Modals/CreateContent';
 import TaskItem from '../TaskItem/TaskItem';
 import {plus} from '@/app/Utils/icons';
+import Modal from '../Modals/Modal';
 
 const TasksStyled = styled.main`
   width: 100%;
@@ -68,10 +69,12 @@ interface Props {
 }
 
 const Tasks = ({title, tasks = []} : Props) => {
-    const {theme,isLoading} = useGlobalState();
+    const {theme,isLoading, openModal, modal } = useGlobalState();
     
   return (
+
     <TasksStyled theme={theme}>
+      {modal && <Modal content={<CreateContent/>} />}
       <h1>{title}</h1>
     <div
   className="tasks grid"
@@ -86,12 +89,12 @@ const Tasks = ({title, tasks = []} : Props) => {
           title= {task.title}
           description= {task.description}
           date= {task.date}
-          isCompleted= {task.completed}
+          isCompleted= {task.isCompleted}
           isImportant= {task.important}
           id={task.id}
           />
         ))}
-        <button className="create-task">
+        <button className="create-task" onClick={openModal}>
           {plus}
           Add New Task
         </button>

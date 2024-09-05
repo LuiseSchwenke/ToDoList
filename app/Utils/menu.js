@@ -17,7 +17,7 @@ const menu = [
         id: 3,
         title: "Completed",
         icon: check,
-        link: "/complete"
+        link: "/completed"
     },
     {
         id: 4,
