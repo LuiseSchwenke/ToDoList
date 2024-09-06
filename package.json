@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d out",
-    "build": "next build",
-    "start": "next start",
-    "dev": "next dev",
-    "lint": "next lint"
-  },
+  "predeploy": "npm run build",
+  "deploy": "vercel --prod",
+  "build": "next build",
+  "start": "next start",
+  "dev": "next dev",
+  "lint": "next lint"
+},
   "dependencies": {
     "@clerk/nextjs": "^5.3.7",
     "@fortawesome/fontawesome-free": "^6.6.0",
