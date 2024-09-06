@@ -7,7 +7,7 @@ import menu from '@/app/Utils/menu';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import Button from '../Button/Button';
-import { logout } from '@/app/Utils/icons';
+import { arrowLeft, bars, logout } from '@/app/Utils/icons';
 import { useClerk, UserButton, useUser } from '@clerk/nextjs';
 
 const SidebarStyled = styled.nav`
@@ -20,6 +20,34 @@ const SidebarStyled = styled.nav`
   flex-direction: column;
   justify-content: space-between;
   color: ${(props) => props.theme.colorGray3};
+
+  @media screen and (max-width:768px) {
+    position:fixed;
+    height: calculate(100vh - 2rem);
+    z-index:100;
+    transform: ${(props) => props.collapsed ? "translateX(-107%)" : "translateX(0)"};
+    transition: all 0.3 cubic-bezier(.53,.21,0,1);
+
+    .toggle-nav{
+      display:block !important;
+    }
+  }
+
+  .toggle-nav{
+    display:none;
+    position: absolute;
+    right: -55px;
+    top: 1.8rem;
+    padding: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+
+    background-color: ${(props) => props.theme.colorbg2};
+    border-right: 2px solid ${(props) => props.theme.borderColor2};
+    order-top: 2px solid ${(props) => props.theme.borderColor2};
+    order-bottom: 2px solid ${(props) => props.theme.borderColor2};
+  }
+
 
   .user-btn{
     .cl-rootBox{
@@ -172,7 +200,7 @@ const SidebarStyled = styled.nav`
 `;
 
 function Sidebar() {
-  const { theme } = useGlobalState();
+  const { theme, collapsed, collapsedMenu } = useGlobalState();
   const router = useRouter();
   const pathname = usePathname();
   const {signOut} = useClerk();
@@ -184,7 +212,10 @@ function Sidebar() {
   };
 
   return (
-    <SidebarStyled theme={theme}>
+    <SidebarStyled theme={theme} collapsed={collapsed}>
+      <button className="toggle-nav" onClick={collapsedMenu}>
+        {collapsed? bars : arrowLeft}
+        </button>
       <div className="profile">
         <div className="profile-overlay"></div>
         <div className="image">
